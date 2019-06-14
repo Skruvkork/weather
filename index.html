@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Varmt som i trinidad?</title>
+	<script src="weather.js"></script>
+	<style>
+		body {
+			text-align: center;
+			font-family: 'Open Sans', sans-serif;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}
+
+		#answer {
+			font-size: 1.5em;
+		}
+
+		.cities {
+			display: flex;
+		}
+		.weather-stats {
+			flex: 1;
+		}
+
+		.city-temp::after {
+			content: " °C";
+		}
+
+		.updated {
+			opacity: 0.6;
+			margin-top: 50px;
+		}
+	</style>
+</head>
+<body>
+	<h1>Är det hett som i Trinidad?</h1>
+	<p id="answer"></p>
+	<div class="cities">
+		<div class="weather-stats">
+			<p class="city-name" id="city1-name"></p>
+			<p class="city-temp" id="city1-temp"></p>
+		</div>
+		<div class="weather-stats">
+			<p class="city-name" id="city2-name"></p>
+			<p class="city-temp" id="city2-temp"></p>
+		</div>
+	</div>
+	<p class="updated">Senast uppdaterad <time id="updated-time" datetime=""></time></p>
+</body>
+</html>
