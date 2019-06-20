@@ -88,4 +88,5 @@ function askForPermission() {
 
 window.onload = refresh
 
+askForPermission();
 setInterval(refresh, 1000 * 60 * 10) //refresh every 10 minutes
