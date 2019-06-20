@@ -5,6 +5,13 @@ const cities = {
 	Chaguana: 7521937
 }
 
+const messages = {
+	yes: 'Det är hett som i Trinidad!',
+	no: 'Det är inte längre hett som i Trinidad :('
+}
+
+let latestNotification;
+
 function getWeather(city) {
 	return fetch(`https://api.openweathermap.org/data/${API_VERSION}/weather?id=${city}&units=metric&APPID=${API_KEY}`)
 		.then(response => response.json())
@@ -46,12 +53,16 @@ async function refresh() {
 		if (tempDiff < 3) {
 			answer.innerText = 'Ja'
 
-			notify();
+			notify(messges.yes)
 		} else {
 			answer.innerText = 'Typ'
 		}
 	} else {
 		answer.innerText = 'Nej'
+		
+		if (latestNotification === messages.yes) {
+			notify(messages.no)
+		}
 	}
 
 	const time = new Date()
@@ -60,30 +71,19 @@ async function refresh() {
 	updated.setAttribute('datetime', time.toISOString())
 }
 
-function notify() {
-	// Let's check if the browser supports notifications
-	if (!("Notification" in window)) {
-		alert("This browser does not support system notifications");
-	}
-
-	// Let's check whether notification permissions have already been granted
-	else if (Notification.permission === "granted") {
+function notify(message) {
+	if ("Notification" in window && Notification.permission === "granted" && message !== latestNotification) {
 		// If it's okay let's create a notification
-		var notification = new Notification("Det är hett som i Trinidad!");
+		new Notification(message)
+		latestNotification = message
 	}
+}
 
-	// Otherwise, we need to ask the user for permission
-	else if (Notification.permission !== 'denied') {
-		Notification.requestPermission(function(permission) {
-			// If the user accepts, let's create a notification
-			if (permission === "granted") {
-				var notification = new Notification("Det är hett som i Trinidad!");
-			}
-		});
+function askForPermission() {
+	// Let's check if the browser supports notifications
+	if ("Notification" in window) {
+		Notification.requestPermission()
 	}
-
-  // Finally, if the user has denied notifications and you 
-  // want to be respectful there is no need to bother them any more.
 }
 
 window.onload = refresh
