@@ -53,7 +53,7 @@ async function refresh() {
 		if (tempDiff < 3) {
 			answer.innerText = 'Ja'
 
-			notify(messges.yes)
+			notify(messages.yes)
 		} else {
 			answer.innerText = 'Typ'
 		}
